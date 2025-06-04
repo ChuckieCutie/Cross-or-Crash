@@ -1,2 +1,2 @@
 # Cross-or-Crash
-A game 
+A simple game
