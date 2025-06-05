@@ -5,34 +5,61 @@ import { metadata as rows, addRows } from "./Map";
 export const player = Player();
 
 function Player() {
-  const player = new THREE.Group();
+  const player = new THREE.Group(); 
 
   const body = new THREE.Mesh(
-    new THREE.BoxGeometry(15, 15, 20),
+    new THREE.SphereGeometry(1, 16, 12), 
     new THREE.MeshLambertMaterial({
-      color: "white",
+      color: 0xffff00,
       flatShading: true,
     })
   );
   body.castShadow = true;
   body.receiveShadow = true;
-  body.position.z = 10;
+  body.scale.set(1.2, 0.8, 1.5);
   player.add(body);
 
-  const cap = new THREE.Mesh(
-    new THREE.BoxGeometry(2, 4, 2),
+  const head = new THREE.Mesh(
+    new THREE.SphereGeometry(0.6), 
     new THREE.MeshLambertMaterial({
-      color: 0xf0619a,
+      color: 0xffff00,
       flatShading: true,
     })
   );
-  cap.position.z = 21;
-  cap.castShadow = true;
-  cap.receiveShadow = true;
-  player.add(cap);
+  head.position.set(0, 0.8, 1.2); 
+  head.castShadow = true;
+  head.receiveShadow = true;
+  player.add(head);
 
-  const playerContainer = new THREE.Group();
+  const beak = new THREE.Mesh(
+    new THREE.ConeGeometry(0.2, 0.5, 16), 
+    new THREE.MeshLambertMaterial({
+      color: 0xffa500,
+      flatShading: true,
+    })
+  );
+  beak.rotation.x = Math.PI / 2;
+  beak.position.set(0, 0.8, 1.8); 
+  beak.castShadow = true;
+  beak.receiveShadow = true;
+  player.add(beak);
+
+  const targetZSize = 20;
+  const currentBodyEffectiveZSize = 1 * 2 * 1.5;
+  
+  player.rotation.x = Math.PI / 2;
+  player.rotation.y = Math.PI ;
+
+  const scaleFactor = targetZSize / currentBodyEffectiveZSize; 
+
+  player.scale.set(scaleFactor, scaleFactor, scaleFactor); 
+
+  const bodyOriginalRadiusYComponent = 1 * body.scale.y; 
+  const liftAmount = bodyOriginalRadiusYComponent * scaleFactor;
+
+  const playerContainer = new THREE.Group(); 
   playerContainer.add(player);
+  playerContainer.userData.liftAmount = liftAmount;
 
   return playerContainer;
 }
@@ -47,7 +74,13 @@ export const movesQueue = [];
 export function initializePlayer(){
   player.position.x = 0;
   player.position.y = 0;
-  player.children[0].position.z = 0;
+
+  const scaleFactor = (20) / (1 * 2 * 1.5); 
+  const bodyBaseRadiusY = 1; 
+  const bodyScaleY = 0.8;   
+  const liftAmount = (bodyBaseRadiusY * bodyScaleY) * scaleFactor; 
+  
+  player.children[0].position.z = liftAmount;
 
   position.currentRow = 0;
   position.currentTile = 0;

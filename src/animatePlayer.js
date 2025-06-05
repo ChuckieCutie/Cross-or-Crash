@@ -4,23 +4,28 @@ import {
   position,
   movesQueue,
   stepCompleted,
-} from "./components/Player";
-import { tileSize } from "./constants";
+} from "./components/Player"; 
+import { tileSize } from "./constants"; 
 
 const moveClock = new THREE.Clock(false);
+const targetZSize = 20; 
+const currentBodyEffectiveZSize = 1 * 2 * 1.5; 
+const overallScaleFactor = targetZSize / currentBodyEffectiveZSize; 
+const bodyBaseRadiusForWorldZ = 1;
+const bodyLocalScaleForWorldZ = 0.8;
+const liftAmount = (bodyBaseRadiusForWorldZ * bodyLocalScaleForWorldZ) * overallScaleFactor; 
 
 export function animatePlayer() {
   if (!movesQueue.length) return;
 
   if (!moveClock.running) moveClock.start();
 
-  const stepTime = 0.2; // Seconds it takes to take a step
+  const stepTime = 0.2; 
   const progress = Math.min(1, moveClock.getElapsedTime() / stepTime);
 
   setPosition(progress);
   setRotation(progress);
 
-  // Once a step has ended
   if (progress >= 1) {
     stepCompleted();
     moveClock.stop();
@@ -40,19 +45,30 @@ function setPosition(progress) {
 
   player.position.x = THREE.MathUtils.lerp(startX, endX, progress);
   player.position.y = THREE.MathUtils.lerp(startY, endY, progress);
-  player.children[0].position.z = Math.sin(progress * Math.PI) * 8;
+
+  const hopAmplitude = 8; 
+  player.children[0].position.z = liftAmount + Math.sin(progress * Math.PI) * hopAmplitude;
 }
 
 function setRotation(progress) {
   let endRotation = 0;
-  if (movesQueue[0] == "forward") endRotation = 0;
-  if (movesQueue[0] == "left") endRotation = Math.PI / 2;
-  if (movesQueue[0] == "right") endRotation = -Math.PI / 2;
-  if (movesQueue[0] == "backward") endRotation = Math.PI;
+  
+  if (movesQueue[0] == "forward") { 
+    endRotation = 0;                
+  }
+  if (movesQueue[0] == "left") {   
+    endRotation = Math.PI / 2;      
+  }
+  if (movesQueue[0] == "right") {   
+    endRotation = -Math.PI / 2;     
+  }
+  if (movesQueue[0] == "backward") {
+    endRotation = Math.PI;          
+  }
 
   player.children[0].rotation.z = THREE.MathUtils.lerp(
     player.children[0].rotation.z,
     endRotation,
     progress
   );
-}
+}   
