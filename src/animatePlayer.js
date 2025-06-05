@@ -54,21 +54,23 @@ function setRotation(progress) {
   let endRotation = 0;
   
   if (movesQueue[0] == "forward") { 
-    endRotation = 0;                
+    endRotation = Math.PI;                
   }
   if (movesQueue[0] == "left") {   
-    endRotation = Math.PI / 2;      
+    endRotation = -Math.PI / 2;      
   }
   if (movesQueue[0] == "right") {   
-    endRotation = -Math.PI / 2;     
+    endRotation = Math.PI / 2;     
   }
   if (movesQueue[0] == "backward") {
-    endRotation = Math.PI;          
+    endRotation = 0 ;          
   }
 
-  player.children[0].rotation.z = THREE.MathUtils.lerp(
-    player.children[0].rotation.z,
-    endRotation,
+if (Math.abs(player.children[0].rotation.y - endRotation) > 0.01 || progress < 0.1) {
+    player.children[0].rotation.y = THREE.MathUtils.lerp(
+      player.children[0].rotation.y,
+      endRotation,
     progress
   );
+}
 }   
