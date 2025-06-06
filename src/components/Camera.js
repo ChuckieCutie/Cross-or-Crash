@@ -7,10 +7,10 @@ export function Camera() {
   const height = viewRatio < 1 ? size / viewRatio : size;
 
   const camera = new THREE.OrthographicCamera(
-    width / -2, // left
-    width / 2, // right
-    height / 2, // top
-    height / -2, // bottom
+    width / -3, // left
+    width / 3, // right
+    height / 3, // top
+    height / -3, // bottom
     100, // near
     900 // far
   );

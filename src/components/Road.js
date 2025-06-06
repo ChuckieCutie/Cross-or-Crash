@@ -7,7 +7,7 @@ export function Road(rowIndex) {
 
   const foundation = new THREE.Mesh(
     new THREE.PlaneGeometry(tilesPerRow * tileSize, tileSize),
-    new THREE.MeshLambertMaterial({ color: 0x454a59 })
+    new THREE.MeshLambertMaterial({ color: "#9dc3db" })
   );
   foundation.receiveShadow = true;
   road.add(foundation);
