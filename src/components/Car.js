@@ -7,6 +7,9 @@ export function Car(initialTileIndex, direction, color) {
   car.position.x = initialTileIndex * tileSize;
   if (!direction) car.rotation.z = Math.PI;
 
+  // Random kích cỡ xe (0.8 - 1.2)
+  const randomScale = 0.8 + Math.random() * 0.4;
+
   const main = new THREE.Mesh(
     new THREE.BoxGeometry(60, 30, 15),
     new THREE.MeshLambertMaterial({ color, flatShading: true })
@@ -14,7 +17,6 @@ export function Car(initialTileIndex, direction, color) {
   main.position.z = 12;
   main.castShadow = true;
   main.receiveShadow = true;
-
   car.add(main);
 
   const cabin = new THREE.Mesh(
@@ -28,7 +30,6 @@ export function Car(initialTileIndex, direction, color) {
   cabin.position.z = 25.5;
   cabin.castShadow = true;
   cabin.receiveShadow = true;
-  
   car.add(cabin);
 
   const frontWheel = Wheel(18);
@@ -36,6 +37,9 @@ export function Car(initialTileIndex, direction, color) {
 
   const backWheel = Wheel(-18);
   car.add(backWheel);
+
+  // Áp dụng random kích cỡ cho toàn bộ xe
+  car.scale.set(randomScale, randomScale, randomScale);
 
   return car;
 }

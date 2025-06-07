@@ -44,6 +44,51 @@ function Player() {
   beak.receiveShadow = true;
   player.add(beak);
 
+  // === CÁC BỘ PHẬN MỚI ĐƯỢC THÊM VÀO ĐÂY ===
+
+  // 1. Thêm mắt
+  const eyeGeometry = new THREE.SphereGeometry(0.12, 12, 12);
+  const eyeMaterial = new THREE.MeshLambertMaterial({ color: 0x000000 });
+  
+  const eyeLeft = new THREE.Mesh(eyeGeometry, eyeMaterial);
+  eyeLeft.position.set(0.25, 1.0, 1.65);
+  player.add(eyeLeft);
+
+  const eyeRight = eyeLeft.clone();
+  eyeRight.position.x = -eyeLeft.position.x;
+  player.add(eyeRight);
+
+  // 2. Thêm cánh
+  const wingGeometry = new THREE.BoxGeometry(0.2, 0.8, 0.8);
+  const wingMaterial = new THREE.MeshLambertMaterial({
+      color: 0xfdd835, // Màu vàng hơi khác một chút
+      flatShading: true,
+  });
+  
+  const wingLeft = new THREE.Mesh(wingGeometry, wingMaterial);
+  wingLeft.position.set(0.7, 0, 0.2);
+  wingLeft.rotation.z = Math.PI / 4;
+  wingLeft.castShadow = true;
+  player.add(wingLeft);
+
+  const wingRight = wingLeft.clone();
+  wingRight.position.x *= -1;
+  wingRight.rotation.z *= -1;
+  player.add(wingRight);
+
+  // 3. Thêm mào
+  const combGeometry = new THREE.BoxGeometry(0.1, 0.3, 0.4);
+  const combMaterial = new THREE.MeshLambertMaterial({
+      color: 0xff0000,
+      flatShading: true,
+  });
+  const comb = new THREE.Mesh(combGeometry, combMaterial);
+  comb.position.set(0, 1.2, 1.1);
+  comb.castShadow = true;
+  player.add(comb);
+
+  // ===========================================
+
   const targetZSize = 20;
   const currentBodyEffectiveZSize = 1 * 2 * 1.5;
   
@@ -111,7 +156,9 @@ export function stepCompleted() {
   if (direction === "right") position.currentTile += 1;
 
   // Add new rows if the player is running out of them
-  if (position.currentRow > rows.length - 10) addRows();
+  if (position.currentRow > rows.length - 10) {
+    addRows(position.currentRow);
+  }
 
   const scoreDOM = document.getElementById("score");
   if (scoreDOM) scoreDOM.innerText = position.currentRow.toString();
