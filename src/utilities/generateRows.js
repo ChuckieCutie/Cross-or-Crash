@@ -11,9 +11,9 @@ export function generateRows(amount) {
 }
 
 function generateRow() {
-  const type = randomElement(["car", "truck", "forest"]);
-  if (type === "car") return generateCarLaneMetadata();
-  if (type === "truck") return generateTruckLaneMetadata();
+  const type = randomElement(["swan", "chicken", "forest"]);
+  if (type === "Swan") return generateSwanLaneMetadata();
+  if (type === "chicken") return generateChickenLaneMetadata();
   return generateForesMetadata();
 }
 
@@ -38,7 +38,7 @@ function generateForesMetadata() {
   return { type: "forest", trees };
 }
 
-function generateCarLaneMetadata() {
+function generateSwanLaneMetadata() {
   const direction = randomElement([true, false]);
   const speed = randomElement([125, 156, 188]);
 
@@ -61,10 +61,10 @@ function generateCarLaneMetadata() {
     return { initialTileIndex, color };
   });
 
-  return { type: "car", direction, speed, vehicles };
+  return { type: "swan", direction, speed, vehicles };
 }
 
-function generateTruckLaneMetadata() {
+function generateChickenLaneMetadata() {
   const direction = randomElement([true, false]);
   const speed = randomElement([125, 156, 188]);
 
@@ -89,5 +89,5 @@ function generateTruckLaneMetadata() {
     return { initialTileIndex, color };
   });
 
-  return { type: "truck", direction, speed, vehicles };
+  return { type: "chicken", direction, speed, vehicles };
 }

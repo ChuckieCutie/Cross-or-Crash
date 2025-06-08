@@ -18,16 +18,16 @@ document
 
 window.addEventListener("keydown", (event) => {
   if (event.key === "ArrowUp") {
-    event.preventDefault(); // Avoid scrolling the page
+    event.preventDefault(); 
     queueMove("forward");
   } else if (event.key === "ArrowDown") {
-    event.preventDefault(); // Avoid scrolling the page
+    event.preventDefault();
     queueMove("backward");
   } else if (event.key === "ArrowLeft") {
-    event.preventDefault(); // Avoid scrolling the page
+    event.preventDefault(); 
     queueMove("left");
   } else if (event.key === "ArrowRight") {
-    event.preventDefault(); // Avoid scrolling the page
+    event.preventDefault(); 
     queueMove("right");
   }
 });

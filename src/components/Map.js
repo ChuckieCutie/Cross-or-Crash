@@ -3,15 +3,14 @@ import { generateRows } from "../utilities/generateRows";
 import { Grass } from "./Grass";
 import { Road } from "./Road";
 import { Tree } from "./Tree";
-import { Car } from "./Car";
-import { Truck } from "./Truck";
+import { Swan } from "./Swan";
+import { Chicken } from "./Chicken";
 
 export const metadata = [];
 
 export const map = new THREE.Group();
 
 export function initializeMap() {
-  //remove rows
   metadata.length = 0;
   map.remove(...map.children);
   for (let rowIndex = 0; rowIndex > -5; rowIndex--) {
@@ -41,33 +40,33 @@ export function addRows() {
       map.add(row);
     }
 
-    if (rowData.type === "car") {
+    if (rowData.type === "swan") {
       const row = Road(rowIndex);
 
       rowData.vehicles.forEach((vehicle) => {
-        const car = Car(
+        const swan = Swan(
           vehicle.initialTileIndex,
           rowData.direction,
           vehicle.color
         );
-        vehicle.ref = car;
-        row.add(car);
+        vehicle.ref = swan;
+        row.add(swan);
       });
 
       map.add(row);
     }
 
-    if (rowData.type === "truck") {
+    if (rowData.type === "chicken") {
       const row = Road(rowIndex);
 
       rowData.vehicles.forEach((vehicle) => {
-        const truck = Truck(
+        const chicken = Chicken(
           vehicle.initialTileIndex,
           rowData.direction,
           vehicle.color
         );
-        vehicle.ref = truck;
-        row.add(truck);
+        vehicle.ref = chicken;
+        row.add(chicken);
       });
 
       map.add(row);
