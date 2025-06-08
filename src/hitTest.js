@@ -9,7 +9,7 @@ export function hitTest() {
   const row = rows[position.currentRow - 1];
   if (!row) return;
 
-  if (row.type === "car" || row.type === "truck") {
+  if (row.type === "swan" || row.type === "chicken") {
     const playerBoundingBox = new THREE.Box3();
     playerBoundingBox.setFromObject(player);
 

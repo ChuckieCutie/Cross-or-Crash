@@ -12,7 +12,7 @@ export function generateRows(amount) {
 
 function generateRow() {
   const type = randomElement(["swan", "chicken", "forest"]);
-  if (type === "Swan") return generateSwanLaneMetadata();
+  if (type === "swan") return generateSwanLaneMetadata();
   if (type === "chicken") return generateChickenLaneMetadata();
   return generateForesMetadata();
 }
