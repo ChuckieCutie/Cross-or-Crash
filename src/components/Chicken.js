@@ -40,8 +40,9 @@ export function Chicken(initialTileIndex, direction, color) {
       flatShading: true 
     })
   );
-  beak.position.set(35, 0, 35);
-  beak.rotation.z = Math.PI/2;
+  // SỬA LẠI: Di chuyển mỏ lại gần đầu hơn để không có khoảng trống
+  beak.position.set(42, 0, 35);
+  beak.rotation.z = -Math.PI / 2;
   chicken.add(beak);
 
   const comb = new THREE.Mesh(
@@ -68,12 +69,13 @@ export function Chicken(initialTileIndex, direction, color) {
   const eyeGeometry = new THREE.SphereGeometry(2, 16, 16);
   const eyeMaterial = new THREE.MeshLambertMaterial({ color: 0x000000 });
   
+  // SỬA LẠI: Thay đổi vị trí của mắt để chúng nằm trên bề mặt của đầu
   const leftEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
-  leftEye.position.set(30, -8, 40);
+  leftEye.position.set(38, -6, 38);
   chicken.add(leftEye);
   
   const rightEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
-  rightEye.position.set(30, 8, 40);
+  rightEye.position.set(38, 6, 38);
   chicken.add(rightEye);
 
   const legMaterial = new THREE.MeshLambertMaterial({ 
@@ -122,28 +124,28 @@ export function Chicken(initialTileIndex, direction, color) {
     new THREE.BoxGeometry(8, 3, 5),
     footMaterial
   );
-  frontLeftFoot.position.set(15, -18, 0);
+  frontLeftFoot.position.set(15, -12, 7.5);
   chicken.add(frontLeftFoot);
 
   const frontRightFoot = new THREE.Mesh(
     new THREE.BoxGeometry(8, 3, 5),
     footMaterial
   );
-  frontRightFoot.position.set(15, 18, 0);
+  frontRightFoot.position.set(15, 12, 7.5);
   chicken.add(frontRightFoot);
 
   const backLeftFoot = new THREE.Mesh(
     new THREE.BoxGeometry(8, 3, 5),
     footMaterial
   );
-  backLeftFoot.position.set(-15, -18, 0);
+  backLeftFoot.position.set(-15, -12, 7.5);
   chicken.add(backLeftFoot);
 
   const backRightFoot = new THREE.Mesh(
     new THREE.BoxGeometry(8, 3, 5),
     footMaterial
   );
-  backRightFoot.position.set(-15, 18, 0);
+  backRightFoot.position.set(-15, 12, 7.5);
   chicken.add(backRightFoot);
 
   chicken.scale.set(randomScale, randomScale, randomScale);
