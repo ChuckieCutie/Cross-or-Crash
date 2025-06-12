@@ -50,8 +50,12 @@ export function Swan(initialTileIndex, direction, color) {
     new THREE.ConeGeometry(4, 12, 32),
     beakMaterial
   );
-  beak.position.set(15, 0, 50);
-  beak.rotation.z = Math.PI / 2;
+  // Đặt mỏ ở rìa phía trước của đầu
+  beak.position.set(13, 0, 50);
+  
+  // SỬA LẠI: Xoay mỏ quanh trục Y với góc DƯƠNG để nó hướng về phía trước
+  beak.rotation.z = -Math.PI/2 ;
+
   swan.add(beak);
   
   const leftEye = new THREE.Mesh(

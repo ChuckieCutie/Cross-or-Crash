@@ -24,6 +24,47 @@ player.add(dirLight);
 const camera = Camera();
 player.add(camera);
 
+// --- BẮT ĐẦU THÊM NHẠC NỀN ---
+
+// 1. Tạo một "tai nghe" và gắn nó vào camera
+const listener = new THREE.AudioListener();
+camera.add(listener);
+
+// 2. Tạo một nguồn âm thanh chung
+const backgroundMusic = new THREE.Audio(listener);
+
+// 3. Tạo trình tải âm thanh
+const audioLoader = new THREE.AudioLoader();
+
+// 4. Tải tệp âm thanh
+audioLoader.load(
+  // Đường dẫn đến tệp nhạc trong thư mục 'public'
+  '/music/background.mp3', 
+  // Hàm callback sẽ chạy khi nhạc đã tải xong
+  function(buffer) {
+    backgroundMusic.setBuffer(buffer);
+    backgroundMusic.setLoop(true); // Lặp lại nhạc
+    backgroundMusic.setVolume(0.3); // Đặt âm lượng (từ 0.0 đến 1.0)
+    
+    // Do chính sách của trình duyệt, âm thanh chỉ có thể bắt đầu sau khi người dùng tương tác.
+    // Chúng ta sẽ tạo một sự kiện để bắt đầu nhạc khi người dùng click hoặc nhấn phím lần đầu.
+    const startMusic = () => {
+      if (!backgroundMusic.isPlaying) {
+        backgroundMusic.play();
+        // Xóa sự kiện sau khi đã chạy một lần
+        document.body.removeEventListener('click', startMusic);
+        window.removeEventListener('keydown', startMusic);
+      }
+    };
+
+    document.body.addEventListener('click', startMusic);
+    window.addEventListener('keydown', startMusic);
+  }
+);
+
+// --- KẾT THÚC THÊM NHẠC NỀN ---
+
+
 const scoreDOM = document.getElementById("Score");
 const resultDOM = document.getElementById("result-container");
 
