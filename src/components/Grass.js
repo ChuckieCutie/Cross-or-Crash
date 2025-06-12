@@ -14,4 +14,4 @@ export function Grass(rowIndex) {
   grass.add(foundation);
 
   return grass;
-}
+} 
